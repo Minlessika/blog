@@ -102,7 +102,7 @@ public final class Main {
                             new FkRegex("/robots\\.txt", ""),
                             new FkRegex("/", new TkIndex()),
                             new FkRegex("/home", new TkHome()),
-                            new FkRegex("/index.php/2019/12/07/minlessika-accounting-une-comptabilite-mobile-et-collaborative-qui-vous-parle/", new TkAccountingArticle1())  
+                            new FkRegex("/index.php/2019/12/07/minlessika-accounting-une-comptabilite-mobile-et-collaborative-qui-vous-parle", new TkAccountingArticle1())  
                         )
                     )
                 )

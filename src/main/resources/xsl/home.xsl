@@ -17,7 +17,7 @@
 					<div class="contents">
 						<span class="caption">ACCOUNTING</span>
 						<h2>
-							<a href="/accounting-article-1">Une Comptabilité Mobile et Collaborative Qui Vous Rend Efficace</a>
+							<a href="/index.php/2019/12/07/minlessika-accounting-une-comptabilite-mobile-et-collaborative-qui-vous-parle/">Une Comptabilité Mobile et Collaborative Qui Vous Rend Efficace</a>
 						</h2>
 						<p class="mb-3">L'outil qu'il vous faut pour plus de mobilité, de collaborativité et d'agilité dans votre gestion comptable et dans le management de votre entreprise. Actuellement disponible pour le système comptable SYSCOHADA version 2018.</p>
 						<div class="post-meta">

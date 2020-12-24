@@ -24,30 +24,49 @@
 
 package com.minlessika.web;
 
-import org.cactoos.collection.Sticky;
 import org.takes.Request;
-import org.takes.Response;
-import org.takes.Take;
+import org.takes.Scalar;
+import org.takes.facets.flash.XeFlash;
+import org.takes.rs.RsWrap;
+import org.takes.rs.xe.RsXembly;
 import org.takes.rs.xe.XeAppend;
+import org.takes.rs.xe.XeChain;
+import org.takes.rs.xe.XeDate;
+import org.takes.rs.xe.XeSource;
+import org.takes.rs.xe.XeStylesheet;
 
 /**
- * Home page.
- *
- * <p>The class is immutable and thread-safe.</p>
+ * Response content.
  *
  * @since 0.0.1
  */
-public final class TkHome implements Take {
+public final class RsContent extends RsWrap {
 
-    @Override
-    public Response act(final Request req) throws Exception {
-        return new RsPage(
-            "/xsl/home.xsl",
-            req,
-            () -> new Sticky<>(
-                new XeAppend("menu", "home")
+    /**
+     * Ctor.
+     * @param xsl Xsl path file
+     * @param req Request
+     * @param src Source
+     */
+    public RsContent(
+        final String xsl,
+        final Request req,
+        final Scalar<Iterable<XeSource>> src
+    ) {
+        super(
+            new RsXembly(
+                new XeStylesheet(xsl),
+                new XeAppend(
+                    "page",
+                    new XeChain(src),
+                    new XeDate(),
+                    new XeFlash(req),
+                    new XeAppend(
+                        "version",
+                        new XeAppend("name", "0.0.1")
+                    )
+                )
             )
         );
     }
-
 }

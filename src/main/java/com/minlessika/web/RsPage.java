@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Minlessika Co.
+ * Copyright (c) 2020 Minlessika Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.minlessika.web;
 
 import java.io.IOException;
@@ -28,18 +29,12 @@ import java.util.Collections;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Scalar;
-import org.takes.facets.flash.XeFlash;
 import org.takes.facets.fork.FkTypes;
 import org.takes.facets.fork.RsFork;
 import org.takes.rs.RsWithType;
 import org.takes.rs.RsWrap;
 import org.takes.rs.RsXslt;
-import org.takes.rs.xe.RsXembly;
-import org.takes.rs.xe.XeAppend;
-import org.takes.rs.xe.XeChain;
-import org.takes.rs.xe.XeDate;
 import org.takes.rs.xe.XeSource;
-import org.takes.rs.xe.XeStylesheet;
 
 /**
  * RsPage.
@@ -53,49 +48,65 @@ public final class RsPage extends RsWrap {
      * @param xsl Xslt file path
      * @param req Request
      * @param src Xml data
-     * @throws IOException
+     * @throws IOException If fails
      */
-    RsPage(final String xsl, final Request req, final Scalar<Iterable<XeSource>> src) throws IOException {
-        super(RsPage.make(xsl, req, src));
+    RsPage(
+        final String xsl,
+        final Request req,
+        final Scalar<Iterable<XeSource>> src
+    ) throws IOException {
+        super(
+            RsPage.make(
+                req,
+                new RsContent(
+                    xsl,
+                    req,
+                    src
+                )
+            )
+        );
     }
-    
+
     /**
      * Ctor.
      * @param xsl Xslt file path
      * @param req Request
-     * @throws IOException
+     * @throws IOException If fails
      */
     RsPage(final String xsl, final Request req) throws IOException {
-        super(RsPage.make(xsl, req, Collections::emptyList));
-    }
-    
-    /**
-     * Create a response from Xslt file and Xml data
-     * @param xsl
-     * @param req
-     * @param src
-     * @return
-     * @throws IOException
-     */
-    private static Response make(final String xsl, final Request req, final Scalar<Iterable<XeSource>> src) throws IOException {        
-        final Response raw = new RsXembly(
-            new XeStylesheet(xsl),
-            new XeAppend(
-                "page", 
-                new XeChain(src),
-                new XeDate(),
-                new XeFlash(req),
-                new XeAppend(
-                    "version",
-                    new XeAppend("name", "0.0.1")
+        super(
+            RsPage.make(
+                req,
+                new RsContent(
+                    xsl,
+                    req,
+                    Collections::emptyList
                 )
             )
-        );       
+        );
+    }
+
+    /**
+     * Create a response from Xslt file and Xml data.
+     * @param req Request
+     * @param res Content to complete
+     * @return Complete response
+     * @throws IOException If fails
+     */
+    private static Response make(
+        final Request req,
+        final Response res
+    ) throws IOException {
         return new RsFork(
             req,
             new FkTypes(
                 "*/*",
-                new RsXslt(new RsWithType(raw, "text/html"))
+                new RsXslt(
+                    new RsWithType(
+                        res,
+                        "text/html"
+                    )
+                )
             )
         );
     }

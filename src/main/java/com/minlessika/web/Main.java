@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Minlessika Co.
+ * Copyright (c) 2020 Minlessika Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.minlessika.web;
 
 import java.io.IOException;
-
 import org.takes.facets.flash.TkFlash;
-import org.takes.facets.fork.FkMethods;
 import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
-import org.takes.facets.fork.TkMethods;
 import org.takes.facets.forward.TkForward;
 import org.takes.http.Exit;
 import org.takes.http.FtCli;
-import org.takes.tk.TkClasspath;
-import org.takes.tk.TkSlf4j;
-import org.takes.tk.TkWithType;
 
 /**
  * Entry point.
  *
  * @since 0.0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class Main {
 
@@ -48,65 +44,36 @@ public final class Main {
      * Ctor.
      */
     private Main() {
+        // utility class
     }
 
     /**
      * Main.
-     *
      * @param args Arguments
-     * @throws IOException if it fails
+     * @throws IOException If fails
      */
     @SuppressWarnings("PMD.ProhibitPublicStaticMethods")
     public static void main(final String[] args) throws IOException {
         new FtCli(
-            new TkSlf4j(
-                new TkForward(
-                    new TkFlash(
+            new TkForward(
+                new TkFlash(
+                    new TkMimeTypes(
                         new TkFork(
-                            new FkRegex(
-                                ".+\\.css", 
-                                new TkWithType(new TkClasspath(), "text/css")
-                            ),
-                            new FkRegex(
-                                ".+\\.svg", 
-                                new TkWithType(new TkClasspath(), "image/svg+xml")
-                            ),
-                            new FkRegex(
-                                ".+\\.png", 
-                                new TkWithType(new TkClasspath(), "image/png")
-                            ),
-                            new FkRegex(
-                                ".+\\.jpg", 
-                                new TkWithType(new TkClasspath(), "image/jpeg")
-                            ),
-                            new FkRegex(
-                                ".+\\.ico", 
-                                new TkWithType(new TkClasspath(), "image/ico")
-                            ),
-                            new FkRegex(
-                                ".+\\.woff2", 
-                                new TkWithType(new TkClasspath(), "application/font-woff")
-                            ),
-                            new FkRegex(
-                                ".+\\.woff", 
-                                new TkWithType(new TkClasspath(), "application/font-woff")
-                            ),
-                            new FkRegex(
-                                ".+\\.ttf", 
-                                new TkWithType(new TkClasspath(), "application/octet-stream")
-                            ),
-                            new FkRegex(
-                                ".+\\.js", 
-                                new TkWithType(new TkClasspath(), "application/javascript")
-                            ),
                             new FkRegex("/robots\\.txt", ""),
                             new FkRegex("/", new TkIndex()),
                             new FkRegex("/home", new TkHome()),
-                            new FkRegex("/index.php/2019/12/07/minlessika-accounting-une-comptabilite-mobile-et-collaborative-qui-vous-parle", new TkAccountingArticle1())  
+                            new FkRegex(
+                                String.format(
+                                    "%s%s",
+                                    "/index.php/2019/12/07/minlessika-accounting-une-",
+                                    "comptabilite-mobile-et-collaborative-qui-vous-parle"
+                                ),
+                                new TkAccountingArticle1()
+                            )
                         )
                     )
                 )
-            ), 
+            ),
             args
         ).start(Exit.NEVER);
     }

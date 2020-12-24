@@ -1,6 +1,6 @@
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Minlessika/accounting-chart/blob/main/LICENSE.txt)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Minlessika/blog/blob/main/LICENSE.txt)
 
 ## What does it do ?
 It is the blog of Minlessika.
@@ -18,4 +18,4 @@ Keep in mind that JDK7 and Maven 3.1.0 are the lowest versions you may use.
 ## Got questions ?
 
 If you have questions or general suggestions, don't hesitate to submit
-a new [Github issue](https://github.com/Minlessika/accounting-chart/issues/new).
+a new [Github issue](https://github.com/Minlessika/blog/issues/new).
